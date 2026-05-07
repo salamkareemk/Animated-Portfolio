@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (
-    <section id="about" className="relative w-full py-32 px-6 lg:px-8 z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+    <section id="about" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
         
         {/* Holographic Abstract Element */}
         <motion.div
@@ -15,7 +15,7 @@ export default function About() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative flex justify-center items-center h-full"
         >
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
+          <div className="relative w-64 h-64 md:w-96 md:h-96">
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}

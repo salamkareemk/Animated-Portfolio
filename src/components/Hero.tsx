@@ -13,7 +13,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-6"
         >
-          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+          <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tighter text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             Abdul Salam <span className="text-cyan-400">Kareem</span>
           </h1>
         </motion.div>
@@ -22,7 +22,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="text-xl md:text-3xl font-medium text-neutral-300 h-10 mb-8"
+          className="text-lg sm:text-xl md:text-3xl font-medium text-neutral-300 min-h-[48px] md:h-10 mb-8"
         >
           <Typewriter
             words={[
@@ -44,7 +44,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-12 font-light tracking-wide italic"
+          className="text-base sm:text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto mb-12 font-light tracking-wide italic px-4 md:px-0"
         >
           “Transforming intelligent ideas into real-world digital solutions.”
         </motion.p>

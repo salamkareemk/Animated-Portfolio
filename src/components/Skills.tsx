@@ -40,9 +40,9 @@ const MarqueeLayer = ({
         {[...skills, ...skills].map((skill, idx) => (
           <div
             key={`${skill}-${idx}`}
-            className="flex-shrink-0 flex items-center justify-center px-8 py-5 mr-6 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.02)] hover:bg-white/[0.08] hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:-translate-y-1 transition-all duration-300 group cursor-default"
+            className="flex-shrink-0 flex items-center justify-center px-6 py-4 md:px-8 md:py-5 mr-4 md:mr-6 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.02)] hover:bg-white/[0.08] hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:-translate-y-1 transition-all duration-300 group cursor-default"
           >
-            <span className="text-xl font-medium text-neutral-300 group-hover:text-cyan-300 transition-colors">
+            <span className="text-lg md:text-xl font-medium text-neutral-300 group-hover:text-cyan-300 transition-colors">
               {skill}
             </span>
           </div>
@@ -54,7 +54,7 @@ const MarqueeLayer = ({
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative w-full py-32 overflow-hidden z-10">
+    <section id="skills" className="relative w-full py-20 md:py-32 overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -63,7 +63,7 @@ export default function Skills() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
             Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-500">Arsenal</span>
           </h2>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">

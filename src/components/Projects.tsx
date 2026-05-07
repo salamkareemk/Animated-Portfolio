@@ -43,7 +43,7 @@ const PROJECTS = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full py-32 px-6 lg:px-8 z-10">
+    <section id="projects" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -52,7 +52,7 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white">
             Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-500">Innovations</span>
           </h2>
         </motion.div>
@@ -65,7 +65,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="group relative block h-full min-h-[400px] rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:bg-white/10 transition-colors duration-500 hover:border-cyan-500/50"
+              className="group relative block h-full min-h-[400px] rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-6 md:p-8 hover:bg-white/10 transition-colors duration-500 hover:border-cyan-500/50"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               

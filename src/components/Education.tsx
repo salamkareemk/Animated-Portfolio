@@ -12,7 +12,7 @@ const EDUCATION = [
 
 export default function Education() {
   return (
-    <section id="education" className="relative w-full py-32 px-6 lg:px-8 z-10">
+    <section id="education" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -21,7 +21,7 @@ export default function Education() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
             Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Background</span>
           </h2>
         </motion.div>
@@ -39,7 +39,7 @@ export default function Education() {
               {/* Premium Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="relative bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 backdrop-blur-md hover:bg-white/10 transition-all duration-300 overflow-hidden">
+              <div className="relative bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 backdrop-blur-md hover:bg-white/10 transition-all duration-300 overflow-hidden">
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 relative z-10">
                   <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
                     {edu.degree}

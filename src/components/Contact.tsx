@@ -27,8 +27,8 @@ const GithubIcon = ({ className }: { className?: string }) => (
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative w-full py-32 px-6 lg:px-8 z-10 border-t border-white/5 bg-black/50">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+    <section id="contact" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10 border-t border-white/5 bg-black/50">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
         
         {/* Contact Info */}
         <motion.div
@@ -38,7 +38,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="flex flex-col justify-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
             Let&apos;s build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">future.</span>
           </h2>
           <p className="text-neutral-400 text-lg mb-12 max-w-md">
@@ -80,7 +80,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col gap-6 p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl relative overflow-hidden"
+          className="flex flex-col gap-6 p-6 md:p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl relative overflow-hidden"
         >
           <div className="absolute -top-32 -right-32 w-64 h-64 bg-cyan-500/10 blur-3xl rounded-full pointer-events-none" />
           

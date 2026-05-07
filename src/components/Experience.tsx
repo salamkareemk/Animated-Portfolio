@@ -25,7 +25,7 @@ const EXPERIENCES = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative w-full py-32 px-6 lg:px-8 z-10">
+    <section id="experience" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -34,7 +34,7 @@ export default function Experience() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
             Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Journey</span>
           </h2>
         </motion.div>
