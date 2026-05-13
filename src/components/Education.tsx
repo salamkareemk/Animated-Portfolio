@@ -12,7 +12,7 @@ const EDUCATION = [
 
 export default function Education() {
   return (
-    <section id="education" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10">
+    <section id="education" className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 z-10">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -39,9 +39,9 @@ export default function Education() {
               {/* Premium Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="relative bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 backdrop-blur-md hover:bg-white/10 transition-all duration-300 overflow-hidden">
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 relative z-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+              <div className="relative bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-10 backdrop-blur-md hover:bg-white/10 transition-all duration-300 overflow-hidden">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3 sm:gap-4 relative z-10">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
                     {edu.degree}
                   </h3>
                   <span className="text-sm font-semibold text-pink-400 bg-pink-400/10 border border-pink-500/20 px-5 py-2 rounded-full w-fit whitespace-nowrap shadow-[0_0_15px_rgba(236,72,153,0.15)]">
@@ -49,7 +49,7 @@ export default function Education() {
                   </span>
                 </div>
                 
-                <p className="text-neutral-300 leading-relaxed text-lg relative z-10">
+                <p className="text-neutral-300 leading-relaxed text-sm sm:text-base md:text-lg relative z-10">
                   {edu.description}
                 </p>
                 

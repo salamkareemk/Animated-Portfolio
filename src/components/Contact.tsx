@@ -27,7 +27,7 @@ const GithubIcon = ({ className }: { className?: string }) => (
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10 border-t border-white/5 bg-black/50">
+    <section id="contact" className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 z-10 border-t border-white/5 bg-black/50">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
         
         {/* Contact Info */}
@@ -38,10 +38,10 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="flex flex-col justify-center"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white mb-4 sm:mb-6">
             Let&apos;s build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">future.</span>
           </h2>
-          <p className="text-neutral-400 text-lg mb-12 max-w-md">
+          <p className="text-neutral-400 text-sm sm:text-base md:text-lg mb-8 sm:mb-12 max-w-md">
             I am currently open for opportunities. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
           </p>
 
@@ -50,14 +50,14 @@ export default function Contact() {
               <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400">
                 <MapPin className="w-5 h-5" />
               </div>
-              <span className="text-lg">Kerala, India</span>
+              <span className="text-sm sm:text-base md:text-lg">Kerala, India</span>
             </div>
             
             <a href="mailto:salamkareemk@gmail.com" className="flex items-center gap-4 text-neutral-300 hover:text-white transition-colors group">
               <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 transition-all">
                 <Mail className="w-5 h-5" />
               </div>
-              <span className="text-lg">salamkareemk@gmail.com</span>
+              <span className="text-sm sm:text-base md:text-lg break-all">salamkareemk@gmail.com</span>
             </a>
 
             <div className="flex gap-4 pt-6">
@@ -80,7 +80,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col gap-6 p-6 md:p-8 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl relative overflow-hidden"
+          className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-xl relative overflow-hidden"
         >
           <div className="absolute -top-32 -right-32 w-64 h-64 bg-cyan-500/10 blur-3xl rounded-full pointer-events-none" />
           

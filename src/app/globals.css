@@ -7,10 +7,22 @@
   --foreground: #ffffff;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  /* The smooth scroll behavior can sometimes interfere with framer motion scroll handling, we'll keep it default */
+  overflow-x: hidden;
+  touch-action: manipulation;
 }
 
 @layer utilities {

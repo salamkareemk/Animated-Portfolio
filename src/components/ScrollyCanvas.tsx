@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 
 const FRAME_COUNT = 120; // 000 to 119
@@ -8,15 +8,61 @@ const FRAME_COUNT = 120; // 000 to 119
 const currentFrame = (index: number) =>
   `/new_sequence/frame_${index.toString().padStart(3, "0")}_delay-0.066s.png`;
 
+/** Draw an image onto a canvas using "cover" fill mode (like background-size: cover) */
+function drawCover(
+  ctx: CanvasRenderingContext2D,
+  img: HTMLImageElement,
+  canvasW: number,
+  canvasH: number
+) {
+  const imgAspect = img.naturalWidth / img.naturalHeight;
+  const canvasAspect = canvasW / canvasH;
+
+  let sx = 0, sy = 0, sw = img.naturalWidth, sh = img.naturalHeight;
+
+  if (imgAspect > canvasAspect) {
+    // Image is wider — crop sides
+    sw = img.naturalHeight * canvasAspect;
+    sx = (img.naturalWidth - sw) / 2;
+  } else {
+    // Image is taller — crop top/bottom
+    sh = img.naturalWidth / canvasAspect;
+    sy = (img.naturalHeight - sh) / 2;
+  }
+
+  ctx.clearRect(0, 0, canvasW, canvasH);
+  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvasW, canvasH);
+}
+
 export default function ScrollyCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const currentFrameIndexRef = useRef(0);
 
-  // Track scroll over the entire document
   const { scrollYProgress } = useScroll();
-
-  // Map scroll progress to a frame index
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1]);
+
+  // Resize canvas to always fill the viewport exactly
+  const resizeCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Redraw current frame after resize
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const img = images[currentFrameIndexRef.current];
+    if (img && img.complete && img.naturalWidth > 0) {
+      drawCover(ctx, img, canvas.width, canvas.height);
+    }
+  }, [images]);
+
+  // Listen for resize
+  useEffect(() => {
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    return () => window.removeEventListener("resize", resizeCanvas);
+  }, [resizeCanvas]);
 
   // Preload images
   useEffect(() => {
@@ -26,62 +72,61 @@ export default function ScrollyCanvas() {
       img.src = currentFrame(i);
       loadedImages.push(img);
     }
-    setImages(loadedImages);
+    // Once the first frame loads, resize and draw
+    loadedImages[0].onload = () => {
+      setImages(loadedImages);
+    };
   }, []);
 
-  // Draw initial frame
+  // Draw initial frame when images are loaded
   useEffect(() => {
     if (images.length === 0) return;
-
-    const render = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const context = canvas.getContext("2d");
-      if (!context) return;
-
-      const img = images[0];
-
-      img.onload = () => {
-        canvas.width = 1920;
-        canvas.height = 1080;
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
-    };
-
-    render();
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const img = images[0];
+    if (img.complete && img.naturalWidth > 0) {
+      drawCover(ctx, img, canvas.width, canvas.height);
+    } else {
+      img.onload = () => drawCover(ctx, img, canvas.width, canvas.height);
+    }
   }, [images]);
 
-  // Update canvas when frameIndex changes
+  // Update canvas on scroll
   useEffect(() => {
     return frameIndex.on("change", (latest) => {
       if (images.length === 0) return;
-      
       const canvas = canvasRef.current;
       if (!canvas) return;
-      const context = canvas.getContext("2d");
-      if (!context) return;
-
-      const img = images[Math.round(latest)];
-      if (img && img.complete) {
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const idx = Math.round(Math.max(0, Math.min(FRAME_COUNT - 1, latest)));
+      currentFrameIndexRef.current = idx;
+      const img = images[idx];
+      if (img && img.complete && img.naturalWidth > 0) {
+        drawCover(ctx, img, canvas.width, canvas.height);
       }
     });
   }, [frameIndex, images]);
 
-  // Apply a subtle opacity transform to fade out the canvas slightly at the very bottom
-  const canvasOpacity = useTransform(scrollYProgress, [0.8, 1], [0.8, 0.2]);
+  const canvasOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0.3]);
 
   return (
-    <motion.div 
+    <motion.div
       style={{ opacity: canvasOpacity }}
       className="fixed inset-0 w-full h-full -z-50 pointer-events-none overflow-hidden bg-black"
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-cover opacity-60 mix-blend-screen"
+        style={{ display: "block", width: "100%", height: "100%" }}
       />
-      {/* Dynamic gradient overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90 pointer-events-none" />
+      {/* Gradient overlay for text readability — stronger on mobile */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/50 via-black/20 to-black/80" />
+      {/* Side vignette */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]" />
     </motion.div>
   );
 }

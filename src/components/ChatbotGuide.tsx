@@ -34,7 +34,7 @@ export default function ChatbotGuide() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -42,7 +42,7 @@ export default function ChatbotGuide() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="absolute bottom-16 right-0 w-80 h-96 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="absolute bottom-16 right-0 w-[min(80vw,320px)] h-80 sm:h-96 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 bg-white/5 border-b border-white/10 flex justify-between items-center">

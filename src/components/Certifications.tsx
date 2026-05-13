@@ -11,7 +11,7 @@ const CERTIFICATIONS = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10">
+    <section id="certifications" className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 z-10">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -25,7 +25,7 @@ export default function Certifications() {
           </h2>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6">
           {CERTIFICATIONS.map((cert, idx) => (
             <motion.div
               key={idx}
@@ -34,10 +34,10 @@ export default function Certifications() {
               whileHover={{ y: -10, scale: 1.05 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="relative px-6 py-4 md:px-8 md:py-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_25px_rgba(34,211,238,0.2)] hover:border-cyan-400/50 flex items-center justify-center text-center group cursor-default transition-all"
+              className="relative px-4 sm:px-6 py-3 sm:py-4 md:px-8 md:py-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_25px_rgba(34,211,238,0.2)] hover:border-cyan-400/50 flex items-center justify-center text-center group cursor-default transition-all"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-300" />
-              <span className="relative text-base md:text-lg font-medium text-neutral-200 group-hover:text-white z-10">
+              <span className="relative text-sm sm:text-base md:text-lg font-medium text-neutral-200 group-hover:text-white z-10">
                 {cert}
               </span>
             </motion.div>

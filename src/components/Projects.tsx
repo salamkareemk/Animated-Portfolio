@@ -43,7 +43,7 @@ const PROJECTS = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative w-full py-20 md:py-32 px-6 lg:px-8 z-10">
+    <section id="projects" className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 z-10">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -57,7 +57,7 @@ export default function Projects() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
           {PROJECTS.map((project, idx) => (
             <motion.div
               key={idx}
@@ -65,16 +65,16 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="group relative block h-full min-h-[400px] rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-6 md:p-8 hover:bg-white/10 transition-colors duration-500 hover:border-cyan-500/50"
+              className="group relative block h-full min-h-[320px] sm:min-h-[380px] md:min-h-[400px] rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl p-5 sm:p-6 md:p-8 hover:bg-white/10 transition-colors duration-500 hover:border-cyan-500/50"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               
               <div className="relative h-full flex flex-col justify-between z-10">
                 <div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
+                  <h3 className="text-lg sm:text-2xl font-semibold text-white mb-2 sm:mb-4">
                     {project.title}
                   </h3>
-                  <p className="text-neutral-400 text-base mb-6 leading-relaxed">
+                  <p className="text-neutral-400 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-8">
