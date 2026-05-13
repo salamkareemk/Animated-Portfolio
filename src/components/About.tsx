@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -33,7 +34,7 @@ export default function About() {
             {/* Profile Photo */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 border-2 border-white/10 rounded-full shadow-[0_0_30px_rgba(34,211,238,0.2)] overflow-hidden transition-transform duration-500 hover:scale-105">
-                <img src="/profile.jpg" alt="Abdul Salam Kareem" className="w-full h-full object-cover" />
+                <Image src="/profile.jpg" alt="Abdul Salam Kareem" fill className="object-cover" />
               </div>
             </div>
           </div>
