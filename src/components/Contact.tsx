@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin } from "lucide-react";
 
@@ -26,6 +27,66 @@ const GithubIcon = ({ className }: { className?: string }) => (
 );
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!formData.name.trim()) {
+      setStatus("error");
+      setErrorMessage("Please enter your name.");
+      return;
+    }
+    if (!formData.email.trim()) {
+      setStatus("error");
+      setErrorMessage("Please enter your email.");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setStatus("error");
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+    if (!formData.message.trim()) {
+      setStatus("error");
+      setErrorMessage("Please enter a message.");
+      return;
+    }
+
+    setStatus("sending");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message.");
+      }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      setStatus("error");
+      setErrorMessage(err.message || "Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <section id="contact" className="relative w-full py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 z-10 border-t border-white/5 bg-black/50">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
@@ -76,6 +137,7 @@ export default function Contact() {
 
         {/* Contact Form */}
         <motion.form
+          onSubmit={handleSubmit}
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -86,21 +148,72 @@ export default function Contact() {
           
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="text-sm font-medium text-neutral-400">Name</label>
-            <input type="text" id="name" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder="John Doe" />
+            <input 
+              type="text" 
+              id="name" 
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors" 
+              placeholder="John Doe" 
+              required
+              disabled={status === "sending"}
+            />
           </div>
           
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text-sm font-medium text-neutral-400">Email</label>
-            <input type="email" id="email" className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors" placeholder="john@example.com" />
+            <input 
+              type="email" 
+              id="email" 
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors" 
+              placeholder="john@example.com" 
+              required
+              disabled={status === "sending"}
+            />
           </div>
           
           <div className="flex flex-col gap-2">
             <label htmlFor="message" className="text-sm font-medium text-neutral-400">Message</label>
-            <textarea id="message" rows={5} className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none" placeholder="Hello..." />
+            <textarea 
+              id="message" 
+              rows={5} 
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none" 
+              placeholder="Hello..." 
+              required
+              disabled={status === "sending"}
+            />
           </div>
 
-          <button type="button" className="mt-4 w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98]">
-            Send Message
+          {status === "success" && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm font-medium"
+            >
+              Thank you! Your message has been sent successfully.
+            </motion.div>
+          )}
+
+          {status === "error" && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-sm font-medium"
+            >
+              {errorMessage}
+            </motion.div>
+          )}
+
+          <button 
+            type="submit" 
+            disabled={status === "sending"}
+            className="mt-2 w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:from-cyan-800 disabled:to-blue-900 disabled:text-neutral-500 text-white rounded-xl font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)] active:scale-[0.98] disabled:scale-100 disabled:shadow-none"
+          >
+            {status === "sending" ? "Sending..." : "Send Message"}
           </button>
         </motion.form>
 

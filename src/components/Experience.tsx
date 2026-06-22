@@ -51,7 +51,7 @@ export default function Experience() {
             >
               {/* Timeline dot */}
               <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
-              
+
               <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
                   <h3 className="text-lg sm:text-2xl font-semibold text-white">{exp.role}</h3>

@@ -1,36 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send } from "lucide-react";
 
 export default function ChatbotGuide() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! I am Abdul Salam&apos;s AI assistant. How can I help you explore this portfolio?", isBot: true }
+    { text: "Hello! I am Abdul Salam's AI assistant. How can I help you explore this portfolio?", isBot: true }
   ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isLoading]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
     
-    // Add user message
-    setMessages(prev => [...prev, { text: input, isBot: false }]);
-    const currentInput = input;
+    const userMsg = { text: input, isBot: false };
+    setMessages(prev => [...prev, userMsg]);
     setInput("");
+    setIsLoading(true);
 
-    // Mock bot reply
-    setTimeout(() => {
-      let reply = "I&apos;m a mock AI assistant for this portfolio. Abdul Salam is an incredible AI Engineer ready for new challenges!";
-      if (currentInput.toLowerCase().includes("contact") || currentInput.toLowerCase().includes("email")) {
-        reply = "You can contact Abdul Salam at salamkareemk@gmail.com or via the contact form at the bottom of the page.";
-      } else if (currentInput.toLowerCase().includes("project")) {
-        reply = "He has built amazing projects like a Traffic Sign Detection system and a Hate Speech Detection web app. Check out the &apos;Innovations&apos; section!";
-      } else if (currentInput.toLowerCase().includes("skill")) {
-        reply = "His tech stack includes Python, TensorFlow, PyTorch, Django, Next.js, and much more.";
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMsg],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message.");
       }
-      setMessages(prev => [...prev, { text: reply, isBot: true }]);
-    }, 1000);
+
+      const data = await response.json();
+      setMessages(prev => [...prev, { text: data.reply, isBot: true }]);
+    } catch (err) {
+      console.error(err);
+      setMessages(prev => [...prev, { text: "I'm having trouble connecting to my AI processor right now. Please try again.", isBot: true }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -64,6 +82,17 @@ export default function ChatbotGuide() {
                   </div>
                 </div>
               ))}
+
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-white/10 text-neutral-400 rounded-xl px-4 py-2.5 text-sm rounded-tl-none border border-white/5 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </div>
+                </div>
+              )}
+              <div ref={chatEndRef} />
             </div>
 
             {/* Input Area */}
@@ -73,12 +102,14 @@ export default function ChatbotGuide() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Ask me anything..."
-                className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
+                placeholder={isLoading ? "Thinking..." : "Ask me anything..."}
+                disabled={isLoading}
+                className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 disabled:opacity-50"
               />
               <button 
                 onClick={handleSend}
-                className="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors"
+                disabled={isLoading}
+                className="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
               </button>
