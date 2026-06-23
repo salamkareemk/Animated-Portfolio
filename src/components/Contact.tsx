@@ -81,9 +81,9 @@ export default function Contact() {
 
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus("error");
-      setErrorMessage(err.message || "Something went wrong. Please try again.");
+      setErrorMessage(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   };
 

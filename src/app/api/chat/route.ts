@@ -67,7 +67,7 @@ export async function POST(request: Request) {
 
     // Format messages history for Google Gemini API
     // Gemini roles must be "user" or "model"
-    const formattedContents = messages.map((msg: any) => ({
+    const formattedContents = messages.map((msg: { text: string; isBot: boolean }) => ({
       role: msg.isBot ? "model" : "user",
       parts: [{ text: msg.text }],
     }));
@@ -103,10 +103,11 @@ export async function POST(request: Request) {
       "I couldn't process that. How can I help you explore this portfolio?";
 
     return NextResponse.json({ reply: replyText });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Chatbot API Error:", error);
+    const message = error instanceof Error ? error.message : "Something went wrong.";
     return NextResponse.json(
-      { error: error.message || "Something went wrong." },
+      { error: message },
       { status: 500 }
     );
   }

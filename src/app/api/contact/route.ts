@@ -98,10 +98,11 @@ export async function POST(request: Request) {
       success: true,
       message: "Message sent successfully!"
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending email:", error);
+    const message = error instanceof Error ? error.message : "Failed to send message.";
     return NextResponse.json(
-      { error: error.message || "Failed to send message." },
+      { error: message },
       { status: 500 }
     );
   }
