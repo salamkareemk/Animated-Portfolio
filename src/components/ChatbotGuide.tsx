@@ -4,6 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send } from "lucide-react";
 
+const FAQ_QUESTIONS = [
+  "What are your skills?",
+  "Tell me about your projects",
+  "What is your experience?",
+  "How can I contact you?",
+  "What is your education?",
+];
+
 export default function ChatbotGuide() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -18,10 +26,11 @@ export default function ChatbotGuide() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleSend = async (overrideText?: string) => {
+    const text = overrideText || input;
+    if (!text.trim() || isLoading) return;
     
-    const userMsg = { text: input, isBot: false };
+    const userMsg = { text, isBot: false };
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
@@ -38,14 +47,16 @@ export default function ChatbotGuide() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message.");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to send message.");
       }
 
       const data = await response.json();
       setMessages(prev => [...prev, { text: data.reply, isBot: true }]);
     } catch (err) {
-      console.error(err);
-      setMessages(prev => [...prev, { text: "I'm having trouble connecting to my AI processor right now. Please try again.", isBot: true }]);
+      console.error("Chatbot Error:", err);
+      const errorMessage = err instanceof Error ? err.message : "I'm having trouble connecting to my AI processor right now. Please try again.";
+      setMessages(prev => [...prev, { text: errorMessage, isBot: true }]);
     } finally {
       setIsLoading(false);
     }
@@ -83,6 +94,26 @@ export default function ChatbotGuide() {
                 </div>
               ))}
 
+              {/* FAQ Chips — always shown at the bottom when not loading */}
+              {!isLoading && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-wrap gap-2"
+                >
+                  {FAQ_QUESTIONS.map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => handleSend(q)}
+                      className="text-xs px-3 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all"
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-white/10 text-neutral-400 rounded-xl px-4 py-2.5 text-sm rounded-tl-none border border-white/5 flex items-center gap-1.5">
@@ -107,7 +138,7 @@ export default function ChatbotGuide() {
                 className="flex-1 bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500 disabled:opacity-50"
               />
               <button 
-                onClick={handleSend}
+                onClick={() => handleSend()}
                 disabled={isLoading}
                 className="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors disabled:opacity-50"
               >
