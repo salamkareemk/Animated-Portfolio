@@ -119,8 +119,21 @@ export async function POST(request: Request) {
     }
 
     // All models failed
+    let finalErrorMessage = lastError || "All AI models are currently unavailable. Please try again later.";
+    
+    // Clean up ugly Google API quota errors to be user-friendly
+    if (finalErrorMessage.toLowerCase().includes("quota") || finalErrorMessage.toLowerCase().includes("rate limit")) {
+      const retryMatch = finalErrorMessage.match(/retry in ([\d.]+)s/);
+      if (retryMatch) {
+        const seconds = Math.ceil(parseFloat(retryMatch[1]));
+        finalErrorMessage = `Whoa there! I'm getting too many questions at once. Please wait ${seconds} seconds before asking another.`;
+      } else {
+        finalErrorMessage = "The AI is currently receiving too many requests. Please slow down and try again in a few moments.";
+      }
+    }
+
     return NextResponse.json(
-      { error: lastError || "All AI models are currently unavailable. Please try again later." },
+      { error: finalErrorMessage },
       { status: 503 }
     );
   } catch (error: unknown) {
