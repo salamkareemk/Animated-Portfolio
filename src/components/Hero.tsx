@@ -54,7 +54,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.8 }}
-          className="flex flex-col xs:flex-row items-center justify-center gap-3 sm:gap-6"
+          className="flex flex-col xs:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6"
         >
           <a
             href="#projects"
@@ -67,6 +67,17 @@ export default function Hero() {
             className="w-full xs:w-auto group relative px-6 sm:px-8 py-3 sm:py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-105"
           >
             Contact Me
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full xs:w-auto group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-[0_0_15px_rgba(34,211,238,0.5)] rounded-full font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.7)] hover:scale-105 flex items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Resume
           </a>
         </motion.div>
       </div>
