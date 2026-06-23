@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 const FAQ_QUESTIONS = [
   "What are your skills?",
@@ -89,7 +90,18 @@ export default function ChatbotGuide() {
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.isBot ? "justify-start" : "justify-end"}`}>
                   <div className={`max-w-[85%] rounded-xl px-4 py-2 text-sm ${msg.isBot ? "bg-white/10 text-neutral-200 rounded-tl-none border border-white/5" : "bg-cyan-500/20 text-cyan-100 rounded-tr-none border border-cyan-500/20"}`}>
-                    {msg.text}
+                    <ReactMarkdown
+                      components={{
+                        p: ({node, ...props}) => <p className="mb-2 last:mb-0 leading-relaxed" {...props} />,
+                        ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2 space-y-1" {...props} />,
+                        ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2 space-y-1" {...props} />,
+                        li: ({node, ...props}) => <li className="pl-1" {...props} />,
+                        strong: ({node, ...props}) => <strong className="font-semibold text-white" {...props} />,
+                        a: ({node, ...props}) => <a className="text-cyan-400 hover:underline" {...props} />
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
                   </div>
                 </div>
               ))}
