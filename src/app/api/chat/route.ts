@@ -72,37 +72,57 @@ export async function POST(request: Request) {
       parts: [{ text: msg.text }],
     }));
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: formattedContents,
-          systemInstruction: {
-            parts: [{ text: SYSTEM_PROMPT }],
-          },
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 250,
-          },
-        }),
-      }
-    );
+    const requestBody = JSON.stringify({
+      contents: formattedContents,
+      systemInstruction: {
+        parts: [{ text: SYSTEM_PROMPT }],
+      },
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 250,
+      },
+    });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error?.message || "Gemini API request failed.");
+    // Try models in order — fall back if one is overloaded
+    const models = ["gemini-2.5-flash", "gemini-2.0-flash"];
+    let lastError = "";
+
+    for (const model of models) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: requestBody,
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          lastError = errorData.error?.message || "Gemini API request failed.";
+          console.warn(`Model ${model} failed: ${lastError}. Trying next...`);
+          continue;
+        }
+
+        const data = await response.json();
+        const replyText =
+          data.candidates?.[0]?.content?.parts?.[0]?.text ||
+          "I couldn't process that. How can I help you explore this portfolio?";
+
+        return NextResponse.json({ reply: replyText });
+      } catch (fetchError) {
+        lastError = fetchError instanceof Error ? fetchError.message : "Network error.";
+        console.warn(`Model ${model} threw: ${lastError}. Trying next...`);
+        continue;
+      }
     }
 
-    const data = await response.json();
-    const replyText =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "I couldn't process that. How can I help you explore this portfolio?";
-
-    return NextResponse.json({ reply: replyText });
+    // All models failed
+    return NextResponse.json(
+      { error: lastError || "All AI models are currently unavailable. Please try again later." },
+      { status: 503 }
+    );
   } catch (error: unknown) {
     console.error("Chatbot API Error:", error);
     const message = error instanceof Error ? error.message : "Something went wrong.";
