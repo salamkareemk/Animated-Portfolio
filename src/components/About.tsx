@@ -53,10 +53,10 @@ export default function About() {
             </h2>
             <div className="space-y-4 sm:space-y-6 text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed font-light">
               <p>
-                An innovative AI Engineer and Full-Stack Python Developer passionate about building intelligent, real-world applications. Skilled in Artificial Intelligence, Machine Learning, Django, React, and modern web technologies, with expertise in developing scalable backend systems, interactive frontends, and AI-driven solutions.
+                An innovative AI Engineer and Full-Stack Python Developer passionate about building intelligent, real-world applications. Skilled in Artificial Intelligence, Machine Learning, Generative AI, Django, Flask, React, and modern web technologies, with expertise in developing scalable backend systems, interactive frontends, and AI-driven solutions such as Retrieval-Augmented Generation (RAG) chatbots.
               </p>
               <p>
-                Experienced in designing REST APIs, implementing secure authentication, structuring relational databases, and transforming complex problems into practical, production-ready applications. Specialized in building NLP models, computer vision systems, and dynamic web platforms that combine innovation with real-world usability.
+                Experienced in designing REST APIs, structuring relational databases, and transforming complex problems into practical, production-ready applications. Specialized in building NLP models, computer vision systems, and dynamic web platforms that combine innovation with real-world usability.
               </p>
             </div>
 

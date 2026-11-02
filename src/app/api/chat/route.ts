@@ -11,7 +11,7 @@ Here is Abdul Salam's professional background:
 - LinkedIn: https://www.linkedin.com/in/abdul-salam-kareem/
 - Instagram: https://www.instagram.com/abdul_salam_kareem/
 - GitHub: https://github.com/salamkareemk
-- Core Bio: Passions include building intelligent, real-world AI applications, developing scalable backend systems, interactive frontends, and AI-driven solutions. Experienced in REST APIs, authentication, structuring relational databases, machine learning models, computer vision systems, and NLP.
+- Core Bio: Passions include building intelligent, real-world AI applications, developing scalable backend systems, interactive frontends, and AI-driven solutions such as Retrieval-Augmented Generation (RAG) chatbots. Experienced in designing REST APIs, structuring relational databases, machine learning models, computer vision systems, and NLP.
 - Technical Arsenal (Skills):
   - Languages: Python, Java, C, SQL, JavaScript, TypeScript, HTML/CSS
   - AI/ML/Data Science: TensorFlow, PyTorch, Scikit-learn, OpenCV, NumPy, Pandas, NLP, Computer Vision
@@ -19,20 +19,21 @@ Here is Abdul Salam's professional background:
   - Tools & DBs: Microsoft Azure AI, GitHub, VS Code, MySQL, Docker
 - Academic Background: B.Tech in Artificial Intelligence & Machine Learning (Completed 2025).
 - Professional Journey (Experience):
-  - Advanced Python Django & GenAI Intern at HACA (Dec 2025 - Present). Developed robust backend architectures using Django and integrated state-of-the-art Generative AI models.
-  - AI Intern at SmecLabs (May 2024 - June 2024). Built foundational AI models, engaged in data processing pipelines, predictive modeling, and CV.
-  - AI & Python Intern at Codesoft (Aug 2023 - Sept 2023). Implemented ML algorithms, created datasets, trained and evaluated models.
+  - Full Stack Developer – MERN at HACA – Haris & Co., Kozhikode (Sep 2026 – Present). Developed a placement application on MERN stack (MongoDB, Express.js, React.js, Node.js), integrated APIs, and built AI-related features.
+  - Advanced Python Django & GenAI Intern at HACA – Haris & Co., Kozhikode (Dec 2025 – Aug 2026). Developed backend systems in Python/Django, connected backends to LLM workflows, and implemented RAG pipelines.
+  - AI Intern at SmecLabs, Kochi (May 2024 – Jun 2024). Developed hate speech detection web app using an LSTM-based deep learning model for real-time text classification.
+  - AI and Python Intern at Codsoft (Remote) (Jun 2024 – Jul 2024). Built Python applications including an NLP-powered chatbot and interactive game.
 - Licenses & Certifications:
   - Microsoft LinkedIn Generative AI
   - Infosys AI/NLP/Deep Learning
   - GUVI Google Certifications
   - IT Specialist Python & JavaScript
 - Featured Innovations (Projects):
-  - Traffic Sign Detection & Vehicle Counting System: Real-time CV system using YOLO and OpenCV.
-  - Hate Speech Detection: NLP web app using LSTM and BERT to filter comments.
-  - AI Chatbot: Conversational agent with transformer models and memory.
-  - Movie Database System: Backend system with SQL and REST APIs in Django.
-  - ATM Machine Simulation: Secure ATM simulation in Java focusing on state management.
+  - Centralized Placement Management System | MERN Stack (2026, Internship Project): Centralized placement platform using MongoDB, Express.js, React.js, and Node.js with Apify job scraping, role-based dashboards, and student application tracking. Live Demo: https://hacaplacement.vercel.app/
+  - HACAGPT – RAG Based AI Chatbot (2026, Internship Project): Institutional AI chatbot using LLMs & Retrieval-Augmented Generation, implementing full pipeline: preprocessing, chunking, embeddings, vector indexing, and semantic search via Flask. GitHub: https://github.com/salamkareemk/Haca_GPT_2.0
+  - MovieWorld – React Movie Database (2026, Personal Project): Responsive movie discovery app consuming TMDB API with search, genre filtering, detailed movie pages, and persistent Favorites/Watched lists via Local Storage deployed to Vercel. GitHub: https://github.com/salamkareemk/Movieworld_React
+  - Traffic Sign Detection & Vehicle Counting System: Real-time CV system using YOLO and OpenCV. GitHub: https://github.com/salamkareemk/Traffic-sign-detection-and-Vehicle-counting
+  - Hate Speech Detection: NLP web app using LSTM and BERT to filter comments. GitHub: https://github.com/salamkareemk/Hatespeach-
 
 If someone asks for contact details or wants to send a message, mention the email (salamkareemk@gmail.com) or guide them to use the Contact Me form at the bottom of the page.
 If asked about topics outside of Abdul Salam's background, politely redirect the focus to his profile. Do not answer general knowledge questions unless they relate to his skills or projects.`;
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
       if (lastUserMessage.includes("contact") || lastUserMessage.includes("email")) {
         reply = "You can contact Abdul Salam at salamkareemk@gmail.com or by filling out the form at the bottom of this page.";
       } else if (lastUserMessage.includes("project")) {
-        reply = "Abdul Salam has built impressive projects like a Traffic Sign Detection system and a Hate Speech Detection app. Explore them in the Innovations section!";
+        reply = "Abdul Salam has built impressive projects like the Centralized Placement Management System, HACAGPT (RAG AI Chatbot), and MovieWorld. Explore them in the Innovations section!";
       } else if (lastUserMessage.includes("skill")) {
         reply = "Abdul Salam's core skills include Python, TensorFlow, PyTorch, Django, Next.js, and Machine Learning.";
       }

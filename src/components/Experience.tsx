@@ -4,22 +4,41 @@ import { motion } from "framer-motion";
 
 const EXPERIENCES = [
   {
+    role: "Full Stack Developer – MERN",
+    company: "HACA – Haris & Co., Kozhikode",
+    period: "Sep 2026 – Present",
+    points: [
+      "Developed a placement application on the MERN stack (MongoDB, Express.js, React.js, Node.js) to help students discover relevant job opportunities.",
+      "Integrated APIs to fetch and use data within the application, building both frontend and backend features.",
+      "Worked on AI-related features and explored practical applications of AI within the application.",
+      "Translated application requirements into practical features, solving real-world development challenges through hands-on project work.",
+    ],
+  },
+  {
     role: "Advanced Python Django & GenAI Intern",
-    company: "HACA",
-    period: "Dec 2025 – Present",
-    description: "Developing robust backend architectures using Django and integrating state-of-the-art Generative AI models for enhanced web functionalities.",
+    company: "HACA – Haris & Co., Kozhikode",
+    period: "Dec 2025 – Aug 2026",
+    points: [
+      "Develop backend systems in Python and Django, applying structured project architecture, reusable app design, and software development best practices.",
+      "Build AI-integrated web applications that connect Django backends to LLM-based workflows for real-time, context-aware responses.",
+      "Implemented document chunking, embedding generation, semantic retrieval, and chatbot integration for an institutional AI assistant.",
+    ],
   },
   {
     role: "AI Intern",
-    company: "SmecLabs",
-    period: "May 2024 – June 2024",
-    description: "Built foundational AI models and engaged in data processing pipelines. Focused on predictive modeling and computer vision tasks.",
+    company: "SmecLabs, Kochi",
+    period: "May 2024 – Jun 2024",
+    points: [
+      "Developed a hate speech detection web app using an LSTM-based deep learning model for real-time text classification, improving performance through preprocessing and dataset refinement.",
+    ],
   },
   {
-    role: "AI & Python Intern",
-    company: "Codesoft",
-    period: "August 2023 – September 2023",
-    description: "Implemented machine learning algorithms using Python. Created datasets, trained models, and evaluated performance metrics.",
+    role: "AI and Python Intern",
+    company: "Codsoft (Remote)",
+    period: "Jun 2024 – Jul 2024",
+    points: [
+      "Built multiple Python applications, including an NLP-powered chatbot and an interactive game, delivered against internship milestones.",
+    ],
   },
 ];
 
@@ -60,9 +79,14 @@ export default function Experience() {
                   </span>
                 </div>
                 <h4 className="text-base sm:text-lg text-purple-400 mb-2 sm:mb-4">{exp.company}</h4>
-                <p className="text-neutral-400 leading-relaxed text-sm sm:text-base">
-                  {exp.description}
-                </p>
+                <ul className="space-y-2 text-neutral-400 text-sm sm:text-base">
+                  {exp.points.map((point, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400/80 mt-2 shrink-0" />
+                      <span className="leading-relaxed">{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}

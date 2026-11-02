@@ -3,41 +3,53 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 
-const PROJECTS = [
+interface ProjectItem {
+  title: string;
+  subtitle?: string;
+  description: string;
+  tags: string[];
+  github?: string;
+  link?: string;
+}
+
+const PROJECTS: ProjectItem[] = [
+  {
+    title: "Centralized Placement Management System | MERN Stack",
+    subtitle: "Internship Project • 2026",
+    description:
+      "Developed a centralized placement platform using MongoDB, Express.js, React.js, and Node.js, integrating external job APIs and Apify-based scraping to aggregate technology job opportunities. Implemented role-based dashboards, profile-based job recommendations, job management, and student application tracking to streamline recruitment and placement operations.",
+    tags: ["MongoDB", "Express.js", "React.js", "Node.js", "Apify", "REST APIs"],
+    link: "https://hacaplacement.vercel.app/",
+  },
+  {
+    title: "HACAGPT – RAG Based AI Chatbot",
+    subtitle: "Internship Project • 2026",
+    description:
+      "Designed and developed an institutional AI chatbot using LLMs and Retrieval-Augmented Generation, implementing the full pipeline: preprocessing, document chunking, embedding generation, vector indexing, and semantic search served through an interactive Flask web application.",
+    tags: ["Python", "LLM", "RAG", "Flask", "Vector DB", "Embeddings", "NLP"],
+    github: "https://github.com/salamkareemk/Haca_GPT_2.0",
+  },
+  {
+    title: "MovieWorld – React Movie Database",
+    subtitle: "Personal Project • 2026",
+    description:
+      "Built a responsive movie discovery application consuming the TMDB API for trending, popular, and top-rated titles with search, genre filtering, detailed movie pages, and persistent Favorites and Watched lists using Local Storage, deployed to Vercel.",
+    tags: ["React.js", "Vite", "JavaScript", "React Router", "TMDB API", "HTML", "CSS"],
+    github: "https://github.com/salamkareemk/Movieworld_React",
+  },
   {
     title: "Traffic Sign Detection & Vehicle Counting System",
+    subtitle: "Academic Project",
     description: "Real-time CV system for automated traffic analysis and vehicle counting using YOLO and OpenCV.",
     tags: ["Computer Vision", "Python", "OpenCV", "YOLO"],
-    link: "#",
-    github: "#",
+    github: "https://github.com/salamkareemk/Traffic-sign-detection-and-Vehicle-counting",
   },
   {
     title: "Hate Speech Detection",
+    subtitle: "Internship Project",
     description: "NLP-driven web application using LSTM and BERT models to detect and filter toxic comments.",
     tags: ["NLP", "Deep Learning", "LSTM", "BERT"],
-    link: "#",
-    github: "#",
-  },
-  {
-    title: "AI Chatbot",
-    description: "Intelligent conversational agent built with transformer models, integrating contextual memory.",
-    tags: ["Generative AI", "Python", "Transformers"],
-    link: "#",
-    github: "#",
-  },
-  {
-    title: "Movie Database System",
-    description: "A comprehensive backend system managing cinematic data with advanced SQL queries and REST APIs.",
-    tags: ["Django", "MySQL", "REST API"],
-    link: "#",
-    github: "#",
-  },
-  {
-    title: "ATM Machine Simulation",
-    description: "A secure and robust simulation of ATM operations focusing on transaction integrity and state management.",
-    tags: ["Java", "OOP", "System Design"],
-    link: "#",
-    github: "#",
+    github: "https://github.com/salamkareemk/Hatespeach-",
   },
 ];
 
@@ -71,6 +83,11 @@ export default function Projects() {
               
               <div className="relative h-full flex flex-col justify-between z-10">
                 <div>
+                  {project.subtitle && (
+                    <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400 mb-2 block">
+                      {project.subtitle}
+                    </span>
+                  )}
                   <h3 className="text-lg sm:text-2xl font-semibold text-white mb-2 sm:mb-4">
                     {project.title}
                   </h3>
@@ -90,12 +107,26 @@ export default function Projects() {
                 </div>
 
                 <div className="flex items-center gap-4 mt-auto">
-                  <a href={project.link} className="flex items-center gap-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors">
-                    Live Demo <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                  <a href={project.github} className="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-                    GitHub <ExternalLink className="w-4 h-4" />
-                  </a>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors"
+                    >
+                      Live Demo <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  )}
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm font-medium text-white hover:text-cyan-400 transition-colors"
+                    >
+                      GitHub <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
